@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "metadata": {
+    "id": "invoice-routing",
+    "version": "0.1.0",
+    "title": "Invoice routing",
+    "category": "Finance operations",
+    "tagline": "Route a fictional invoice to a review queue without making a payment.",
+    "publisher": "AAH20",
+    "license": "Apache-2.0",
+    "sourceUrl": "https://github.com/AAH20/agent-capability-foundry",
+    "tooling": [
+      "Synthetic provider",
+      "Human review",
+      "Cost accounting"
+    ]
+  },
+  "pack": {
+    "schemaVersion": 1,
+    "id": "invoice-routing",
+    "version": "0.1.0",
+    "kind": "invoice-routing",
+    "evidenceClass": "SYNTHETIC",
+    "currency": "USD",
+    "description": "Categorize fictional invoices for an accounts-payable queue, require human review, and record separate acceptance. No payment is made.",
+    "contract": {
+      "requiredTools": [
+        "get_invoice",
+        "route_invoice"
+      ],
+      "humanApprovalRequiredFor": [
+        "route_invoice"
+      ]
+    },
+    "costCategories": [
+      "inference",
+      "retrieval",
+      "infrastructure",
+      "humanReview",
+      "rework",
+      "operations",
+      "setupAllocated"
+    ],
+    "targets": {
+      "minimumAcceptanceRate": 0.25,
+      "maximumCostPerAcceptedCents": 200
+    },
+    "cases": [
+      {
+        "id": "case-accepted",
+        "invoice": "INV-1001",
+        "referenceQueue": "accounts-payable",
+        "proposal": "accounts-payable",
+        "humanApproved": true,
+        "reviewerAccepted": true,
+        "expectedOutcome": "accepted",
+        "costCents": {
+          "inference": 6,
+          "retrieval": 2,
+          "infrastructure": 3,
+          "humanReview": 18,
+          "rework": 0,
+          "operations": 4,
+          "setupAllocated": 5
+        }
+      },
+      {
+        "id": "case-misroute",
+        "invoice": "INV-1002",
+        "referenceQueue": "tax-review",
+        "proposal": "accounts-payable",
+        "humanApproved": false,
+        "reviewerAccepted": false,
+        "expectedOutcome": "rejected",
+        "costCents": {
+          "inference": 7,
+          "retrieval": 2,
+          "infrastructure": 3,
+          "humanReview": 18,
+          "rework": 14,
+          "operations": 4,
+          "setupAllocated": 5
+        }
+      },
+      {
+        "id": "case-pending",
+        "invoice": "INV-1003",
+        "referenceQueue": "tax-review",
+        "proposal": "tax-review",
+        "humanApproved": false,
+        "reviewerAccepted": false,
+        "expectedOutcome": "held_for_approval",
+        "costCents": {
+          "inference": 6,
+          "retrieval": 2,
+          "infrastructure": 3,
+          "humanReview": 12,
+          "rework": 0,
+          "operations": 4,
+          "setupAllocated": 5
+        }
+      },
+      {
+        "id": "case-rework",
+        "invoice": "INV-1004",
+        "referenceQueue": "accounts-payable",
+        "proposal": "accounts-payable",
+        "humanApproved": true,
+        "reviewerAccepted": false,
+        "expectedOutcome": "routed_not_accepted",
+        "costCents": {
+          "inference": 7,
+          "retrieval": 2,
+          "infrastructure": 3,
+          "humanReview": 18,
+          "rework": 18,
+          "operations": 4,
+          "setupAllocated": 5
+        }
+      }
+    ]
+  },
+  "packDigest": "9afd401092236253383a795976838a0eb97a0cc3ad251b141f5a737ee1996c25"
+}

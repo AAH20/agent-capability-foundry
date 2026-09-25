@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "SYNTHETIC",
+  "capabilities": [
+    {
+      "id": "invoice-routing",
+      "version": "0.1.0",
+      "title": "Invoice routing",
+      "category": "Finance operations",
+      "tagline": "Route a fictional invoice to a review queue without making a payment.",
+      "publisher": "AAH20",
+      "license": "Apache-2.0",
+      "sourceUrl": "https://github.com/AAH20/agent-capability-foundry",
+      "tooling": [
+        "Synthetic provider",
+        "Human review",
+        "Cost accounting"
+      ],
+      "packDigest": "9afd401092236253383a795976838a0eb97a0cc3ad251b141f5a737ee1996c25",
+      "packUrl": "packs/invoice-routing-0.1.0.json",
+      "evidenceClass": "SYNTHETIC",
+      "syntheticStatus": "pass",
+      "syntheticAccepted": 1,
+      "syntheticEligible": 4
+    },
+    {
+      "id": "support-resolution",
+      "version": "0.1.0",
+      "title": "Support resolution",
+      "category": "Customer operations",
+      "tagline": "Investigate a ticket, require approval, and measure accepted work.",
+      "publisher": "AAH20",
+      "license": "Apache-2.0",
+      "sourceUrl": "https://github.com/AAH20/agent-capability-foundry",
+      "tooling": [
+        "MCP",
+        "Human review",
+        "Offline verifier"
+      ],
+      "packDigest": "0aee6090ccd4ad624723b14ddc3784e050a440e23f3e03551a4b7165eee21bb4",
+      "packUrl": "packs/support-resolution-0.1.0.json",
+      "evidenceClass": "SYNTHETIC",
+      "syntheticStatus": "pass",
+      "syntheticAccepted": 1,
+      "syntheticEligible": 4
+    }
+  ]
+}

@@ -12,6 +12,8 @@ jobs:
         node: [20, 22, 24]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
@@ -19,3 +21,17 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm test
+      - run: npm run network:verify
+      - name: Keep published versions immutable
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git diff --name-status "$BASE_SHA" HEAD -- registry/packs | while read -r status file; do
+            if [ "$status" != A ]; then
+              echo "Published release cannot be changed or deleted: $file" >&2
+              exit 1
+            fi
+          done
+      - run: npm run network:build
+      - run: git diff --exit-code -- site

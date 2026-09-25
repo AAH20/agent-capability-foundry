@@ -6,6 +6,14 @@ This release includes a **synthetic reference** plus CapabilityOps local staging
 
 **Agent Capability Studio** adds a local interactive gallery for two runnable synthetic workflows: support resolution and invoice routing. Visitors can run a demo, inspect case outcomes and invented cost arithmetic, download the pack, and fork it locally. [Start the Studio](#agent-capability-studio) or read its [architecture and scope](docs/STUDIO.md).
 
+**Agent Capability Network** adds a versioned, digest-checked release registry and a static public catalog for these two examples. Authors can submit declarative packs by pull request; the installer checks the pack digest and local runs write receipts without telemetry. [Browse the catalog](https://aah20.github.io/agent-capability-foundry/) or read the [publishing and installation guide](docs/NETWORK.md). The site displays synthetic results, not customer outcomes or usage counts.
+
+```bash
+node src/network-cli.js list
+node src/network-cli.js install support-resolution@0.1.0 local/support.pack.json
+node src/network-cli.js run support-resolution@0.1.0 local/support.receipt.json
+```
+
 ## Agent Capability Studio
 
 ```bash

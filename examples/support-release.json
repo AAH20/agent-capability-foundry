@@ -1,0 +1,11 @@
+{
+  "id": "support-resolution",
+  "version": "0.1.0",
+  "title": "Support resolution",
+  "category": "Customer operations",
+  "tagline": "Investigate a ticket, require approval, and measure accepted work.",
+  "publisher": "AAH20",
+  "license": "Apache-2.0",
+  "sourceUrl": "https://github.com/AAH20/agent-capability-foundry",
+  "tooling": ["MCP", "Human review", "Offline verifier"]
+}

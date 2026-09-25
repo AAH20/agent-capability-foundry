@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "support-resolution",
+  "version": "0.1.0",
+  "evidenceClass": "SYNTHETIC",
+  "currency": "USD",
+  "description": "A support ticket moves from investigation through a proposed resolution, human approval, synthetic closure, and independent acceptance.",
+  "contract": {
+    "requiredTools": [
+      "get_ticket",
+      "close_ticket"
+    ],
+    "humanApprovalRequiredFor": [
+      "close_ticket"
+    ],
+    "effectIdempotencyScope": "pack-version-and-ticket-id",
+    "acceptance": "ticket closed, proposal matches reference answer, and reviewer accepts"
+  },
+  "costCategories": [
+    "inference",
+    "retrieval",
+    "infrastructure",
+    "humanReview",
+    "rework",
+    "operations",
+    "setupAllocated"
+  ],
+  "targets": {
+    "minimumAcceptanceRate": 0.25,
+    "maximumCostPerAcceptedCents": 250
+  },
+  "cases": [
+    {
+      "id": "case-accepted",
+      "ticket": "T-1001",
+      "referenceResolution": "Reset the expired token and confirm the user can sign in",
+      "proposal": "Reset the expired token and confirm the user can sign in",
+      "humanApproved": true,
+      "reviewerAccepted": true,
+      "expectedOutcome": "accepted",
+      "costCents": {
+        "inference": 8,
+        "retrieval": 2,
+        "infrastructure": 3,
+        "humanReview": 20,
+        "rework": 0,
+        "operations": 4,
+        "setupAllocated": 5
+      }
+    },
+    {
+      "id": "case-wrong-answer",
+      "ticket": "T-1002",
+      "referenceResolution": "Restore the account role mapping",
+      "proposal": "Delete the account and create a new one",
+      "humanApproved": false,
+      "reviewerAccepted": false,
+      "expectedOutcome": "rejected",
+      "costCents": {
+        "inference": 9,
+        "retrieval": 2,
+        "infrastructure": 3,
+        "humanReview": 20,
+        "rework": 18,
+        "operations": 4,
+        "setupAllocated": 5
+      }
+    },
+    {
+      "id": "case-not-approved",
+      "ticket": "T-1003",
+      "referenceResolution": "Correct the billing address",
+      "proposal": "Correct the billing address",
+      "humanApproved": false,
+      "reviewerAccepted": false,
+      "expectedOutcome": "held_for_approval",
+      "costCents": {
+        "inference": 8,
+        "retrieval": 2,
+        "infrastructure": 3,
+        "humanReview": 15,
+        "rework": 0,
+        "operations": 4,
+        "setupAllocated": 5
+      }
+    },
+    {
+      "id": "case-closed-rework",
+      "ticket": "T-1004",
+      "referenceResolution": "Reissue the invoice with the correct tax code",
+      "proposal": "Reissue the invoice with the correct tax code",
+      "humanApproved": true,
+      "reviewerAccepted": false,
+      "expectedOutcome": "closed_not_accepted",
+      "costCents": {
+        "inference": 10,
+        "retrieval": 3,
+        "infrastructure": 3,
+        "humanReview": 20,
+        "rework": 25,
+        "operations": 4,
+        "setupAllocated": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "workload": "support-resolution",
+  "samples": 10,
+  "timeoutMs": 5000,
+  "requiredTools": ["get_ticket", "close_ticket"],
+  "targets": [
+    {
+      "name": "staging_gateway",
+      "url": "https://YOUR-OWNED-STAGING-ENDPOINT.example/mcp",
+      "auth": "required",
+      "tokenEnv": "STAGING_MCP_TOKEN"
+    }
+  ]
+}

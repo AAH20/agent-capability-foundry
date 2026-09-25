@@ -4,6 +4,28 @@
 
 This release includes a **synthetic reference** plus CapabilityOps local staging. It has no real reviewers or deployed agent. It gives capability authors a strict pack contract, deterministic runner, offline verifier, metadata-only customer-export intake, local review queue, an MCP staging fixture, and an artifact-level gate for reports from [MCP Compatibility](https://github.com/AAH20/mcp-compatibility), [mcp-redteam](https://github.com/AAH20/mcp-redteam), and [Verified Effects Runtime](https://github.com/AAH20/verified-effects-runtime). A passing artifact gate creates a **candidate**, never a production authorization.
 
+**Agent Capability Studio** adds a local interactive gallery for two runnable synthetic workflows: support resolution and invoice routing. Visitors can run a demo, inspect case outcomes and invented cost arithmetic, download the pack, and fork it locally. [Start the Studio](#agent-capability-studio) or read its [architecture and scope](docs/STUDIO.md).
+
+## Agent Capability Studio
+
+```bash
+npm ci
+npm run studio
+# Open http://127.0.0.1:4327/
+```
+
+The CLI exposes the same catalog without a browser:
+
+```bash
+npm run studio:list
+node src/studio-cli.js run invoice-routing --output reports/invoice-routing.json
+node src/studio-cli.js install invoice-routing --output local/invoice-routing.pack.json
+node src/studio-cli.js fork invoice-routing my-invoice-flow --output local/my-invoice-flow.pack.json
+node src/studio-cli.js run local/my-invoice-flow.pack.json
+```
+
+The browser and CLI use a fixed local catalog; the server binds to loopback. The invoice example routes **fictional** invoices to review queues and cannot pay suppliers or connect to accounting software. Downloading a pack creates an editable file, not a hosted deployment. The Studio's path to community publishing and paid operations is a proposal, not a service claimed here.
+
 ## Run the pack
 
 Node.js 20+; no credentials are needed. Install the MCP SDK dependency before running.

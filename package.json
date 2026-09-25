@@ -4,12 +4,14 @@
   "type": "module",
   "license": "Apache-2.0",
   "description": "Portable executable capability packs with synthetic outcome and release-evidence checks",
-  "bin": { "agent-capability-foundry": "./src/cli.js" },
+  "bin": { "agent-capability-foundry": "./src/cli.js", "agent-capability-studio": "./src/studio-cli.js" },
   "scripts": {
     "demo": "node src/cli.js run packs/support-resolution/pack.json --output reports/support-resolution.json",
     "ops:demo": "node src/ops-cli.js demo packs/support-resolution/pack.json --output reports/capabilityops-demo.json",
+    "studio": "node src/studio-cli.js serve",
+    "studio:list": "node src/studio-cli.js list",
     "test": "node --test tests/*.test.js",
-    "check": "for file in src/*.js src/ops/*.js tests/*.js; do node --check \"$file\" || exit; done"
+    "check": "for file in src/*.js src/ops/*.js src/studio/*.js tests/*.js; do node --check \"$file\" || exit; done"
   },
   "engines": { "node": ">=20" },
   "dependencies": { "@modelcontextprotocol/sdk": "^1.30.0", "zod": "^3.25.0" },

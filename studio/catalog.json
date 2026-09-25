@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "capabilities": [
+    {
+      "id": "support-resolution",
+      "title": "Support resolution",
+      "category": "Customer operations",
+      "tagline": "Investigate a ticket, require approval, and measure accepted work.",
+      "kind": "support-resolution",
+      "pack": "packs/support-resolution/pack.json",
+      "tooling": ["MCP", "Human review", "Offline verifier"]
+    },
+    {
+      "id": "invoice-routing",
+      "title": "Invoice routing",
+      "category": "Finance operations",
+      "tagline": "Route a fictional invoice to the right review queue without making a payment.",
+      "kind": "invoice-routing",
+      "pack": "packs/invoice-routing/pack.json",
+      "tooling": ["Synthetic provider", "Human review", "Cost accounting"]
+    }
+  ]
+}

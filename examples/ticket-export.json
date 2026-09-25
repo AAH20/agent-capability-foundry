@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "source": "customer-supplied-export",
+  "tickets": [
+    { "id": "T-1001", "status": "open", "updatedAt": "2026-09-25T10:00:00Z" },
+    { "id": "T-1002", "status": "pending", "updatedAt": "2026-09-25T10:05:00Z" }
+  ]
+}

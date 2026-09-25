@@ -2,19 +2,29 @@
 
 **Package a business workflow as an executable, inspectable agent capability.** The first pack is `support-resolution`: investigate a ticket, propose an answer, require a human approval before closure, check separate reviewer acceptance, and account for the full cost of accepted work.
 
-This first release is a **synthetic reference**, with no customer records, real reviewers, or deployed agent. It gives capability authors a strict pack contract, deterministic runner, offline verifier, and an artifact-level gate for reports from [MCP Compatibility](https://github.com/AAH20/mcp-compatibility), [mcp-redteam](https://github.com/AAH20/mcp-redteam), and [Verified Effects Runtime](https://github.com/AAH20/verified-effects-runtime). A passing artifact gate creates a **candidate**, never a production authorization.
+This release includes a **synthetic reference** plus CapabilityOps local staging. It has no real reviewers or deployed agent. It gives capability authors a strict pack contract, deterministic runner, offline verifier, metadata-only customer-export intake, local review queue, an MCP staging fixture, and an artifact-level gate for reports from [MCP Compatibility](https://github.com/AAH20/mcp-compatibility), [mcp-redteam](https://github.com/AAH20/mcp-redteam), and [Verified Effects Runtime](https://github.com/AAH20/verified-effects-runtime). A passing artifact gate creates a **candidate**, never a production authorization.
 
 ## Run the pack
 
-Node.js 20+; no third-party runtime dependencies or credentials are needed.
+Node.js 20+; no credentials are needed. Install the MCP SDK dependency before running.
 
 ```bash
 git clone https://github.com/AAH20/agent-capability-foundry.git
 cd agent-capability-foundry
+npm ci
 npm run demo
 node src/cli.js verify packs/support-resolution/pack.json reports/support-resolution.json
 npm test
 ```
+
+## CapabilityOps staging
+
+```bash
+npm run ops:demo
+node src/ops-cli.js import examples/ticket-export.json --output reports/ticket-queue.json
+```
+
+The staging command exercises real MCP protocol calls against a **loopback synthetic ticket provider**. It reads all four cases, makes two distinct approved writes, replays each write to check idempotency within the fixture process, and records outcomes and costs. The import command accepts only customer-supplied ticket IDs, statuses, and timestamps; it makes no external request. A digest-bound local review command is also available, but reviewer labels are unverified and never authorize provider writes. See the [CapabilityOps architecture and release gates](docs/CAPABILITYOPS.md).
 
 The four declared cases produce one accepted resolution, one wrong answer rejected, one correct answer held because approval is missing, and one closed ticket rejected during independent acceptance. The synthetic fixture receives four closure attempts, but records only two distinct effects. All seven cost categories total **210 invented USD cents**, or **210 cents per accepted resolution** across the four eligible cases. These are arithmetic fixture values, not customer economics or evidence of durable external exactly-once effects.
 
@@ -71,6 +81,8 @@ These commands are examples for local sibling checkouts after those projects are
 | All-in cost per accepted resolution | Measured invoices, labor allocation, and case-mix review |
 | Artifact-level candidate gate | Provenance tying one target, build, policy, and run together |
 | Offline report recalculation | Live endpoint adapters and staged rollback |
+| Local metadata export and review snapshot | Customer permission, authenticated reviewers, durable queue |
+| Loopback MCP staging calls and ephemeral replay checks | Customer endpoint integration and durable effect reconciliation |
 
 The public pack format and runner are the open layer. A later commercial service could maintain private customer packs, connectors, deployment operations, and outcome monitoring once a real pilot demonstrates demand. No hosted service is included here.
 
